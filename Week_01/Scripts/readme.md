@@ -1,1 +1,1 @@
-### Scipts for DBs - Movies, PC and Ships
+### Scripts for DBs - Movies, PC and Ships
