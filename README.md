@@ -1,1 +1,5 @@
-# Databases_2024_2025
+# Databases
+
+### Practical classes categorized by weeks
+
+- [Practice class 1](<./Week_01/>) - simple queries
