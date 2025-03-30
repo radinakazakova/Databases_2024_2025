@@ -56,11 +56,11 @@ GROUP BY SPEED
 --Напишете заявка, която извежда производителите, които са произвели поне 3
 --различни персонални компютъра (с различен код).
 
-SELECT MAKER, COUNT(*) AS number_of_pc
+SELECT MAKER, COUNT(DISTINCT PC.CODE) AS number_of_pc
 FROM PRODUCT JOIN PC
 	ON PRODUCT.MODEL = PC.MODEL
 GROUP BY MAKER
-HAVING COUNT(*) >= 3
+HAVING COUNT(DISTINCT PC.CODE) >= 3
 
 --Напишете заявка, която извежда производителите с най-висока цена на персонален компютър.
 
@@ -68,7 +68,7 @@ SELECT MAKER, PRICE
 FROM PRODUCT JOIN PC
 	ON PRODUCT.MODEL = PC.MODEL
 WHERE PRICE >= ALL (SELECT PRICE
-					FROM PC)
+		    FROM PC)
 
 --Напишете заявка, която извежда средната цена на персоналните компютри за
 --всяка честота по-голяма от 800.
@@ -86,8 +86,8 @@ SELECT MAKER, CONVERT(DECIMAL(9,2),AVG(HD)) AS avg_hdd
 FROM PRODUCT JOIN PC
 	ON PRODUCT.MODEL = PC.MODEL
 WHERE MAKER IN (SELECT MAKER
-				FROM PRODUCT JOIN PRINTER
-					ON PRODUCT.MODEL = PRINTER.MODEL)
+		FROM PRODUCT JOIN PRINTER
+			ON PRODUCT.MODEL = PRINTER.MODEL)
 GROUP BY MAKER
 
 
