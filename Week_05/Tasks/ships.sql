@@ -15,7 +15,8 @@ GROUP BY CLASS
 
 SELECT AVG(NUMGUNS) AS avg_guns
 FROM CLASSES
-
+WHERE TYPE='bb'
+	
 --Напишете заявка, която извежда за всеки клас първата и последната година, в
 --която кораб от съответния клас е пуснат на вода.
 
