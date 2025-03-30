@@ -4,8 +4,8 @@
 SELECT NAME
 FROM MOVIESTAR
 WHERE NAME IN	(SELECT NAME
-				 FROM MOVIEEXEC
-				 WHERE NETWORTH > 10000000)
+		 FROM MOVIEEXEC
+		 WHERE NETWORTH > 10000000)
 	AND GENDER = 'F';
 
 --Напишете заявка, която извежда имената на тези актьори (мъже и жени),
@@ -14,7 +14,7 @@ WHERE NAME IN	(SELECT NAME
 SELECT NAME
 FROM MOVIESTAR
 WHERE NAME NOT IN (SELECT NAME
-					FROM MOVIEEXEC);
+		   FROM MOVIEEXEC);
 
 --Напишете заявка, която извежда имената на всички филми с дължина,
 --по-голяма от дължината на филма ‘Star Wars’
@@ -22,8 +22,8 @@ WHERE NAME NOT IN (SELECT NAME
 SELECT TITLE
 FROM MOVIE 
 WHERE LENGTH > (SELECT LENGTH
-				FROM MOVIE
-				WHERE TITLE='Star Wars');
+		FROM MOVIE
+		WHERE TITLE='Star Wars');
 				
 --Напишете заявка, която извежда имената на продуцентите и имената на
 --филмите за всички филми, които са продуцирани от продуценти с нетни
@@ -33,5 +33,5 @@ SELECT TITLE, NAME
 FROM MOVIE JOIN MOVIEEXEC
 	ON CERT# = PRODUCERC#
 WHERE NETWORTH > (SELECT NETWORTH
-					FROM MOVIEEXEC
-					WHERE NAME = 'Merv Griffin');
+		  FROM MOVIEEXEC
+		  WHERE NAME = 'Merv Griffin');
