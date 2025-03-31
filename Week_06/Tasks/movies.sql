@@ -4,7 +4,7 @@
 
 SELECT TITLE, YEAR, LENGTH
 FROM MOVIE 
-WHERE LENGTH > 120 OR LENGTH IS NULL AND YEAR < 2000
+WHERE LENGTH > 120 AND YEAR < 2000 OR LENGTH IS NULL
 
 --Напишете заявка, която извежда име и пол на всички актьори (мъже и жени),
 --чието име започва с 'J' и са родени след 1948 година. Резултатът да бъде
@@ -37,16 +37,16 @@ GROUP BY NAME
 SELECT STUDIONAME, TITLE, YEAR
 FROM MOVIE AS T1
 WHERE YEAR >= ALL (SELECT YEAR
-					FROM MOVIE
-					WHERE STUDIONAME = T1.STUDIONAME)
+		   FROM MOVIE
+	           WHERE STUDIONAME = T1.STUDIONAME)
 
 -- Напишете заявка, която извежда името на най-младия актьор (мъж).
 
 SELECT NAME
 FROM MOVIESTAR
 WHERE GENDER = 'M' AND BIRTHDATE >= ALL (SELECT BIRTHDATE
-										 FROM MOVIESTAR
-										 WHERE GENDER = 'M') --тук също специфицираме пол, защото може да има жена по-голяма от мъж във външната заявка
+					 FROM MOVIESTAR
+					 WHERE GENDER = 'M') --тук също специфицираме пол, защото може да има жена по-голяма от мъж във външната заявка
 
 --Напишете заявка, която извежда име на актьор и име на студио за тези
 --актьори, участвали в най-много филми на това студио.
@@ -56,13 +56,13 @@ SELECT STUDIONAME, STARNAME, COUNT(TITLE) AS NUM_MOVIES
 FROM MOVIE JOIN STARSIN
 	ON TITLE = MOVIETITLE
 GROUP BY STUDIONAME, STARNAME
-HAVING COUNT(TITLE) = (SELECT MAX(NUM_MOVIES)
-						FROM (SELECT STUDIONAME, STARNAME, COUNT(TITLE) AS NUM_MOVIES
-							  FROM MOVIE JOIN STARSIN
-							  ON TITLE = MOVIETITLE
-							  GROUP BY STUDIONAME, STARNAME) AS T1
-						WHERE T1.STUDIONAME = MOVIE.STUDIONAME --нужно, за да специфицираме макса на всяко студио по отделно
-						);
+HAVING COUNT(TITLE) = ( SELECT MAX(NUM_MOVIES)
+			FROM (SELECT STUDIONAME, STARNAME, COUNT(TITLE) AS NUM_MOVIES
+			      FROM MOVIE JOIN STARSIN
+				  ON TITLE = MOVIETITLE
+			      GROUP BY STUDIONAME, STARNAME) AS T1
+			WHERE T1.STUDIONAME = MOVIE.STUDIONAME --нужно, за да специфицираме макса на всяко студио по отделно
+			);
 
 --Напишете заявка, която извежда заглавие и година на филма, и брой на
 --актьорите, участвали в този филм за тези филми с повече от двама актьори.
@@ -71,9 +71,9 @@ SELECT MOVIETITLE, MOVIEYEAR, COUNT(STARNAME) AS STARS_COUNT
 FROM STARSIN
 GROUP BY MOVIETITLE, MOVIEYEAR
 HAVING COUNT(STARNAME) = (SELECT STARS_COUNT --извеждаме колко актьора има във филм от външната заявка, като взимаме тези по-големи от 2
-						  FROM (SELECT MOVIETITLE, MOVIEYEAR, COUNT(STARNAME) AS STARS_COUNT
-								FROM STARSIN
-								GROUP BY MOVIETITLE, MOVIEYEAR) AS T1
-						  WHERE T1.MOVIETITLE = STARSIN.MOVIETITLE AND STARS_COUNT > 2)
+			  FROM (SELECT MOVIETITLE, MOVIEYEAR, COUNT(STARNAME) AS STARS_COUNT
+				FROM STARSIN
+				GROUP BY MOVIETITLE, MOVIEYEAR) AS T1
+			  WHERE T1.MOVIETITLE = STARSIN.MOVIETITLE AND STARS_COUNT > 2)
 --ако групата (филма) има брой актьори равен на тези от подзавката (тоест намереният брой по-големи от 2 като знаем, че става въпрос за един и същи филм)
 --извеждаме резултат
