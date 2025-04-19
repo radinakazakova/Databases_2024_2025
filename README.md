@@ -7,3 +7,4 @@
 - [Practice class 3](<./Week_03/>) - subqueries
 - [Practice class 4](<./Week_04/>) - joins (outer joins)
 - [Practice class 5](<./Week_05/>) - multiple row functions and grouping
+- [Practice class 6](<./Week_06/>) - summary week 1-6
