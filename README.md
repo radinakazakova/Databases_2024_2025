@@ -11,4 +11,5 @@
 - [Practice class 7](<./Week_07/>) - data modification
 - [Practice class 8](<./Week_08/>) - data type, defining relational schemas
 - [Practice class 9](<./Week_09/>) - constraints
-- [Practice class 10](<./Week_10/>) - indexes and views 
+- [Practice class 10](<./Week_10/>) - indexes and views
+- [Practice class 11](<./Week_11/>) - assertions and triggers
