@@ -23,6 +23,19 @@ WHERE ID IN (SELECT CUSTOMER_ID
 				HAVING COUNT(CUSTOMER_ID) >= (SELECT TOP 1 COUNT(CUSTOMER_ID)
 											  FROM BOOKINGS
 											  WHERE AGENCY = B.AGENCY) )
+
+CREATE VIEW freq_customer2 
+AS
+SELECT CUSTOMERS.FNAME, CUSTOMERS.LNAME, ID
+FROM CUSTOMERS
+WHERE ID IN (SELECT CUSTOMER_ID 
+	     FROM BOOKINGS as B
+	     GROUP BY AGENCY, CUSTOMER_ID
+	     HAVING COUNT(CUSTOMER_ID) >= (SELECT TOP 1 COUNT(CUSTOMER_ID) 
+					   FROM BOOKINGS 
+					   WHERE BOOKINGS.AGENCY=B.AGENCY
+					   GROUP BY AGENCY, CUSTOMER_ID
+					   ORDER BY COUNT(CUSTOMER_ID) DESC))
 		
 --Създайте изглед за таблицата Agencies, който извежда всички данни за агенциите от град
 --София. Дефинирайте изгледa с CHECK OPTION. Тествайте изгледa.
