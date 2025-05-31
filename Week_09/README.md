@@ -41,7 +41,7 @@
 
 ```sql
 CREATE TABLE moviestar(
-name CHAR(30) CONSTARINT pk_moviestar PRIMARY KEY,
+name CHAR(30) CONSTRAINT pk_moviestar PRIMARY KEY,
 ... );
 ```
 Ако не зададем име с `CONSTRAINT pk_name`, ще получи генерирано име (EXEC sp_helpconstraints)
