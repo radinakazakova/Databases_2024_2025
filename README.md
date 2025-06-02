@@ -13,3 +13,4 @@
 - [Practice class 9](<./Week_09/>) - constraints
 - [Practice class 10](<./Week_10/>) - indexes and views
 - [Practice class 11](<./Week_11/>) - assertions and triggers
+- [Practice class 11](<./Week_12/>) - summary week 7-11
